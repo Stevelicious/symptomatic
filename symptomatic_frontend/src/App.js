@@ -10,7 +10,8 @@ const initialState = {
   currentSymptom: 0,
   symptomValues: [],
   registeredSymptoms: [],
-  checkerId: 0
+  checkerId: 0,
+  result: {}
 }
 
 class App extends Component {
@@ -76,6 +77,16 @@ class App extends Component {
       .catch(console.log)
     }
 
+    getResults = (checkerId) => {
+      fetch('https://symptomatic-backend-lpfzhwjv2a-lz.a.run.app/api/v1/symptomchecker/'+ checkerId + "/results")
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ result: data })
+      })
+      .catch(console.log)
+    }
+
     renderSwitch = (route) => {
       switch (route) {
         case 'home':
@@ -107,12 +118,14 @@ class App extends Component {
         symptoms={this.state.symptoms}
         registeredSymptoms={this.state.registeredSymptoms}
         onChangeSymptom={this.onChangeSymptom}
+        getResults={this.getResults}
         onRouteChange={this.onRouteChange} />
         )
         case 'result':
         return(
         <div>
           <h2>Your result is</h2>
+          <p>{JSON.stringify(this.state.result)}</p>
           <button onClick={() => {this.onRouteChange('home')}} className='button2'>
           Go back
           </button>

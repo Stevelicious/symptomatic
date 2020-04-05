@@ -27,7 +27,7 @@ class Checker extends React.Component {
         </button>
         </div>
         <DisplaySymptoms symptoms={registeredSymptoms} />
-        <button onClick={() => {this.props.onRouteChange('result')}} className='button2'>
+        <button onClick={() => {this.props.getResults(checkerId); this.props.onRouteChange('result')}} className='button2'>
         Result
         </button>
       </div>
