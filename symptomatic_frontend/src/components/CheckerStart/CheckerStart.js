@@ -16,7 +16,7 @@ class Checker extends React.Component {
         { symptoms.map((symptom, index) => {
             return(
               <button onClick={() => {this.checkSymptom(index)}} key={index}
-                      class={registeredSymptoms[index] && registeredSymptoms[index].value ? 'button-completed ': 'button1'}
+                      className={registeredSymptoms[index] && registeredSymptoms[index].value ? 'button-completed ': 'button1'}
               >
               {symptom.name}
               </button>
