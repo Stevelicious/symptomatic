@@ -7,11 +7,11 @@ import './App.css';
 const initialState = {
   route: 'home',
   symptoms: [
-    {id:1, name: 'Fever', value: 0},
-    {id:2, name: 'Cough', value: 0},
-    {id:3, name: 'Fatigue', value: 0},
-    {id:4, name: 'Breath difficulties', value: 0},
-    {id:5, name: 'Chest tighness', value: 0}
+    {id:1, name: 'Fever', value: 0, dateStart:'', dateEnd:''},
+    {id:2, name: 'Cough', value: 0, dateStart:'', dateEnd:''},
+    {id:3, name: 'Fatigue', value: 0, dateStart:'', dateEnd:''},
+    {id:4, name: 'Breath difficulties', value: 0, dateStart:'', dateEnd:''},
+    {id:5, name: 'Chest tighness', value: 0, dateStart:'', dateEnd:''}
   ],
   currentSymptom: 0,
   symptomValues: []
@@ -23,13 +23,22 @@ class App extends Component {
       this.state = initialState;
     }
 
+    // onStoreDates = () => {
+    //   let symptoms = this.state.symptoms;
+    //   symptoms[this.state.currentSymptom].dateStart = startingDate;
+    //   symptoms[this.state.currentSymptom].dateEnd = endingDate;
+    //   this.setState({symptoms:symptoms});
+    // }
+
     onChangeSymptom = (symptom) => {
       this.setState({currentSymptom: symptom})
     }
 
-    onSetSymptomValue = (value) => {
+    onSetSymptomValue = (value, startingDate, endingDate) => {
       let symptoms = this.state.symptoms;
       symptoms[this.state.currentSymptom].value = value;
+      symptoms[this.state.currentSymptom].dateStart = startingDate;
+      symptoms[this.state.currentSymptom].dateEnd = endingDate;
       this.setState({symptoms:symptoms});
     }
 

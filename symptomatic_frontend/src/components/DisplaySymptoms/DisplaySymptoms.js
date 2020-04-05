@@ -11,6 +11,11 @@ const DisplaySymptoms = ({ symptoms }) => {
                     {obj.name} : {obj.value}
                   </div>
                 );
+              } else {
+                return(
+                  <div>
+                  </div>
+                )
               }
             })
           }
