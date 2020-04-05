@@ -1,0 +1,21 @@
+steps:
+# build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/symptomatic-frontend:$COMMIT_SHA', './symptomatic_frontend']
+# push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/symptomatic-frontend:$COMMIT_SHA']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'symptomatic-frontend'
+  - '--image'
+  - 'gcr.io/$PROJECT_ID/symptomatic-frontend:$COMMIT_SHA'
+  - '--region'
+  - 'europe-north1'
+  - '--platform'
+  - 'managed'
+images:
+- 'gcr.io/$PROJECT_ID/symptomatic-frontend:$COMMIT_SHA'
