@@ -118,6 +118,9 @@ button {
 .d-block{
   display: block;
 }
+.image-wrap img{
+  max-width: 100%;
+}
 
 /* Gradient
 background-image: linear-gradient(to right, #ED1E79, #290754);

@@ -127,7 +127,9 @@ class App extends Component {
         return(
         <div>
           <h2>Your result is</h2>
-          <p>{JSON.stringify(this.state.result)}</p>
+            <div className='image-wrap'>
+                <img src='/bar-graph.png' />
+            </div>
           <button onClick={() => {this.onRouteChange('home')}} className='button2'>
           Go back
           </button>
