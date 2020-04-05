@@ -82,7 +82,9 @@ button {
   background-color: #290754;
   cursor: pointer;
 }
-
+.button-completed{
+  background-color: #444444;
+}
 .logo {
   background-color: #290754;
   color: #ED1E79;
@@ -109,6 +111,12 @@ button {
 	font-family: 'Nunito Sans', sans-serif;
 	font-weight: 700;
 	color: #FFFFFF;
+}
+.d-none{
+  display: none;
+}
+.d-block{
+  display: block;
 }
 
 /* Gradient

@@ -1,4 +1,5 @@
 import React from 'react';
+import Slider from 'react-input-slider';
 
 class Checker extends React.Component {
   constructor(props) {
@@ -8,7 +9,9 @@ class Checker extends React.Component {
       values: [1,2,3,4,5,6,7,8,9,10],
       value: 0,
       startingDate: '',
-      endingDate: ''
+      endingDate: '',
+      temp: '',
+      x: 0 // symptom day count - slider only worked if it was called x
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +27,9 @@ class Checker extends React.Component {
   onEndingDate(event) {
     this.setState({endingDate: event.target.value});
   }
-
+  onTempChange(event){
+    this.setState({value: event.target.value})
+  }
   handleChange(value) {
     this.setState({value: value});
   }
@@ -33,6 +38,7 @@ class Checker extends React.Component {
     let a = {
           "endDate": this.state.startingDate,
           "startDate": this.state.endingDate,
+          "days": this.state.x,
           "symptom": {
             "id": this.props.symptom.id,
             "name": this.props.symptom.name
@@ -48,7 +54,7 @@ class Checker extends React.Component {
     .then(res => res.json())
     .then((data) => {
       console.log(data);
-      this.props.onSetSymptomValue(this.props.symptom.id, this.props.symptom.name, this.state.value, this.state.startingDate, this.state.endingDate);
+      this.props.onSetSymptomValue(this.props.symptom.id, this.props.symptom.name, this.state.value, this.state.startingDate, this.state.endingDate, this.state.days);
       this.props.onRouteChange('checkerStart');
     })
     .catch(console.log)
@@ -60,6 +66,7 @@ class Checker extends React.Component {
     return (
         <div>
         <h3>{ symptom.name }</h3>
+          <div className={symptom.name.toLowerCase() === 'fever' ? 'd-none' : 'd-block'}>
           Select how severe your symptoms are:
           { this.state.values.map((value, index) => {
               return(
@@ -69,22 +76,15 @@ class Checker extends React.Component {
               )
             })
           }
-
+          </div>
+          <div className={symptom.name.toLowerCase() === 'fever' ? 'd-block' : 'd-none'}>
+            What is your temperature?
+            <input type="number" value={this.state.value} onChange={(value) => this.onTempChange(value)}></input>
+          </div>
           <div>
-              <legend>Length of symptom</legend>
+              <legend>Length of symptom: {this.state.x} days</legend>
               <div>
-                <label default="starting-date">Starting Date</label>
-                <input type="date"
-                name="starting-date"
-                id="starting-date"
-                onChange={this.onStartingDate} />
-              </div>
-              <div>
-                <label default="ending-date">Ending Date</label>
-                <input type="date"
-                name="ending-date"
-                id="ending-date"
-                onChange={this.onEndingDate} />
+                <Slider axis="x" x={this.state.x} onChange={({ x }) => this.setState(state => ({ ...state, x }))} disabled={false} xmax={31}/>
               </div>
           </div>
           <div>

@@ -47,13 +47,15 @@ class App extends Component {
       this.setState({currentSymptom: symptomId})
     }
 
-    onSetSymptomValue = (id, name, value, startingDate, endingDate) => {
+    onSetSymptomValue = (id, name, value, startingDate, endingDate, durationDays) => {
       let symptoms = this.state.registeredSymptoms;
       let symptom = {id: id, 
         name: name, 
         value: value,
         dateStart: startingDate,
-        dateEnd: endingDate}
+        dateEnd: endingDate,
+          durationDays: durationDays
+      }
       symptoms[this.state.currentSymptom] = symptom;
       this.setState({registeredSymptoms:symptoms});
     }
