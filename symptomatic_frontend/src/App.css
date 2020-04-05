@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;700;800;900&display=swap');
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+h1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+}
+
+h2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 800;
+}
+
+h3 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 300;
+  font-size: 4vh;
+}
+
+button {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+  color: #FFFFFF;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 10px;
+}
+
+.button1 {
+  background-color: #290754;
+  border: none;
+}
+
+.button1:hover {
+  background-color: #ED1E79;
+  cursor: pointer;
+}
+
+.button2 {
+  background-color: #ED1E79;
+}
+
+.button2:hover {
+  background-color: #290754;
+  cursor: pointer;
+}
+
+.logo {
+  background-color: #290754;
+  color: #ED1E79;
+  border-radius: 10px;
+  padding: 3vh;
+  margin: 3vh;
+  font-size: 10vh;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+}
+
+.disclaimer {
+  background-color: #444444;
+  color: #DDDDDD;
+  padding: 3vh;
+  font-size: 3vh;
+  margin: 3vh;
+  border-radius: 10px;
+}
+
+.select1 {
+	display: block;
+	font-size: 4vh;
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: 700;
+	color: #FFFFFF;
+}
+
+/* Gradient
+background-image: linear-gradient(to right, #ED1E79, #290754);
+*/
