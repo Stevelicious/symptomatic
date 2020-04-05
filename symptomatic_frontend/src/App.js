@@ -6,21 +6,34 @@ import './App.css';
 
 const initialState = {
   route: 'home',
-  symptoms: [
-    {id:1, name: 'Fever', value: 0, dateStart:'', dateEnd:''},
-    {id:2, name: 'Cough', value: 0, dateStart:'', dateEnd:''},
-    {id:3, name: 'Fatigue', value: 0, dateStart:'', dateEnd:''},
-    {id:4, name: 'Breath difficulties', value: 0, dateStart:'', dateEnd:''},
-    {id:5, name: 'Chest tighness', value: 0, dateStart:'', dateEnd:''}
-  ],
+  symptoms: [],
   currentSymptom: 0,
-  symptomValues: []
+  symptomValues: [],
+  registeredSymptoms: [],
+  checkerId: 0
 }
 
 class App extends Component {
     constructor() {
       super();
       this.state = initialState;
+    }
+
+    componentDidMount() {
+      fetch('https://symptomatic-backend-lpfzhwjv2a-lz.a.run.app/api/v1/symptoms')
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+        let a = [
+          {id: data[0].id, name: data[0].name},
+          {id: data[1].id, name: data[1].name},
+          {id: data[2].id, name: data[2].name},
+          {id: data[3].id, name: data[3].name},
+          {id: data[4].id, name: data[4].name}
+        ];
+        this.setState({ symptoms: a })
+      })
+      .catch(console.log)
     }
 
     // onStoreDates = () => {
@@ -30,20 +43,37 @@ class App extends Component {
     //   this.setState({symptoms:symptoms});
     // }
 
-    onChangeSymptom = (symptom) => {
-      this.setState({currentSymptom: symptom})
+    onChangeSymptom = (symptomId) => {
+      this.setState({currentSymptom: symptomId})
     }
 
-    onSetSymptomValue = (value, startingDate, endingDate) => {
-      let symptoms = this.state.symptoms;
-      symptoms[this.state.currentSymptom].value = value;
-      symptoms[this.state.currentSymptom].dateStart = startingDate;
-      symptoms[this.state.currentSymptom].dateEnd = endingDate;
-      this.setState({symptoms:symptoms});
+    onSetSymptomValue = (id, name, value, startingDate, endingDate) => {
+      let symptoms = this.state.registeredSymptoms;
+      let symptom = {id: id, 
+        name: name, 
+        value: value,
+        dateStart: startingDate,
+        dateEnd: endingDate}
+      symptoms[this.state.currentSymptom] = symptom;
+      this.setState({registeredSymptoms:symptoms});
     }
 
     onRouteChange = (route) => {
         this.setState({route: route});
+    }
+
+    newChecker(){
+      const requestOptions = {
+        method: 'POST'
+      };
+      fetch('https://symptomatic-backend-lpfzhwjv2a-lz.a.run.app/api/v1/symptomchecker', requestOptions)
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data.id);
+        this.setState({ checkerId: data.id })
+        this.setState({ registeredSymptoms: [] })
+      })
+      .catch(console.log)
     }
 
     renderSwitch = (route) => {
@@ -51,11 +81,11 @@ class App extends Component {
         case 'home':
         return(
           <div className='center'>
-              <button onClick={() => {this.onRouteChange('checker')}} className='button1'>
+              <button onClick={() => {this.newChecker(); this.onRouteChange('checkerStart')}} className='button1'>
               I am experiencing symptoms
               </button>
 
-              <button onClick={() => {this.onRouteChange('checker')}} className='button1'>
+              <button onClick={() => {this.onRouteChange('checkerStart')}} className='button1'>
               I have tested positive for Covid-19
               </button>
           </div>
@@ -63,7 +93,9 @@ class App extends Component {
         case 'checker':
         return(
         <Checker
-          symptom={this.state.symptoms[this.state.currentSymptom].name}
+          checkerId={this.state.checkerId}
+          symptom={this.state.symptoms[this.state.currentSymptom]}
+          registeredSymptoms={this.state.registeredSymptoms}
           onSetSymptomValue={this.onSetSymptomValue}
           onRouteChange={this.onRouteChange}
           />
@@ -71,7 +103,9 @@ class App extends Component {
         case 'checkerStart':
         return(
         <CheckerStart
+        checkerId={this.state.checkerId}
         symptoms={this.state.symptoms}
+        registeredSymptoms={this.state.registeredSymptoms}
         onChangeSymptom={this.onChangeSymptom}
         onRouteChange={this.onRouteChange} />
         )

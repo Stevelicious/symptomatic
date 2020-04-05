@@ -10,6 +10,7 @@ class Checker extends React.Component {
       startingDate: '',
       endingDate: ''
     }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onStartingDate = this.onStartingDate.bind(this);
@@ -29,15 +30,43 @@ class Checker extends React.Component {
   }
 
   handleSubmit() {
-    this.props.onSetSymptomValue(this.state.value, this.state.startingDate, this.state.endingDate);
-    this.props.onRouteChange('checkerStart');
+    let a = {
+      "id": 0,
+      "symptomCheckerDetailList": [
+        {
+          "endDate": this.state.startingDate,
+          "startDate": this.state.endingDate,
+          "symptom": {
+            "id": this.props.symptom.id,
+            "name": this.props.symptom.name
+          },
+          "value": this.state.value
+        }
+      ]
+    }
+    console.log("pre request")
+    console.log(JSON.stringify(a));
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(a)
+    };
+    fetch('https://symptomatic-backend-lpfzhwjv2a-lz.a.run.app/api/v1/symptomchecker/'+ this.props.checkerId, requestOptions)
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data);
+      this.props.onSetSymptomValue(this.props.symptom.id, this.props.symptom.name, this.state.value, this.state.startingDate, this.state.endingDate);
+      this.props.onRouteChange('checkerStart');
+    })
+    .catch(console.log)
+    
   }
 
   render() {
     const {symptom} = this.props;
     return (
         <div>
-        <h3>{ symptom }</h3>
+        <h3>{ symptom.name }</h3>
           Select how severe your symptoms are:
           { this.state.values.map((value, index) => {
               return(

@@ -9,9 +9,10 @@ class Checker extends React.Component {
   }
 
   render() {
-    const {symptoms} = this.props;
+    const {symptoms, checkerId, registeredSymptoms} = this.props;
     return (
       <div>
+        <div>ID: {checkerId}</div>
         { symptoms.map((symptom, index) => {
             return(
               <button onClick={() => {this.checkSymptom(index)}} className='button1' key={index}>
@@ -25,7 +26,7 @@ class Checker extends React.Component {
         Go back
         </button>
         </div>
-        <DisplaySymptoms symptoms={symptoms} />
+        <DisplaySymptoms symptoms={registeredSymptoms} />
         <button onClick={() => {this.props.onRouteChange('result')}} className='button2'>
         Result
         </button>
