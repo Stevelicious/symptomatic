@@ -121,7 +121,9 @@ button {
 .image-wrap img{
   max-width: 100%;
 }
-
+.more-info{
+  font-size: 16px;
+}
 /* Gradient
 background-image: linear-gradient(to right, #ED1E79, #290754);
 */

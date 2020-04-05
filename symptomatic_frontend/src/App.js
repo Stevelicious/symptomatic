@@ -130,6 +130,7 @@ class App extends Component {
             <div className='image-wrap'>
                 <img src='/bar-graph.png' />
             </div>
+            <p className='more-info'>If you are concerned about the symptoms you are experiencing, <a href='https://www.1177.se/sjukdomar--besvar/infektioner/ovanliga-infektioner/covid-19-coronavirus/' target='_blank'> please click here for more information.</a></p>
           <button onClick={() => {this.onRouteChange('home')}} className='button2'>
           Go back
           </button>
@@ -154,7 +155,7 @@ class App extends Component {
                 {this.renderSwitch(route)}
               </div>
               <div className='disclaimer'>
-              Disclaimer: The information provided is for educational purposes and should not be used for diagnosing or treating a health problem. The information provided is not a substitute for professional advice, diagnosis or treatment. If you have or suspect you may have a health problem, you should consult with your health care provider.
+                Disclaimer: The information provided is for educational purposes and should not be used for diagnosing or treating a health problem. The information provided is not a substitute for professional advice, diagnosis or treatment. If you have or suspect you may have a health problem, you should consult with your health care provider.
               </div>
           </div>
         );
