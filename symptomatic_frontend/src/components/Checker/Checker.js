@@ -31,9 +31,6 @@ class Checker extends React.Component {
 
   handleSubmit() {
     let a = {
-      "id": 0,
-      "symptomCheckerDetailList": [
-        {
           "endDate": this.state.startingDate,
           "startDate": this.state.endingDate,
           "symptom": {
@@ -41,11 +38,7 @@ class Checker extends React.Component {
             "name": this.props.symptom.name
           },
           "value": this.state.value
-        }
-      ]
     }
-    console.log("pre request")
-    console.log(JSON.stringify(a));
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
